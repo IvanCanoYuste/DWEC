@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UT04 - Ejercicio 4 - Zonas de la ventana</title>
+    <style>
+        body {
+            font-family: arial, helvetica;
+        }
+
+        .box {
+            width: 160px;
+            height: 160px;
+            border: thin solid silver;
+            padding: .5em;
+            float: left;
+            margin-right: 15px;
+        }
+
+        .box h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>Posición</h1>
+        <span class="posicion"></span>
+    </div>
+</body>
+
+<script>
+    document.addEventListener("click",(e)=>{
+        let span = document.querySelector("span")
+        if(e.clientX < e.srcElement.clientHeight/2 && 
+        e.clientY < e.srcElement.clientWidth/2){
+            span.textContent = ""
+            span.append("arriba izquierda")
+        }
+
+        if(e.clientX < e.srcElement.clientHeight/2 && 
+        e.clientY > e.srcElement.clientWidth/2){
+            span.textContent = ""
+            span.append("abajo izquierda")
+        }
+
+        if(e.clientX > e.srcElement.clientHeight/2 && 
+        e.clientY < e.srcElement.clientWidth/2){
+            span.textContent = ""
+            span.append("arriba derecha")
+        }
+        if(e.clientX > e.srcElement.clientHeight/2 && 
+        e.clientY > e.srcElement.clientWidth/2){
+            span.textContent = ""
+            span.append("abajo derecha")
+        }
+    })
+</script>
+
+</html>

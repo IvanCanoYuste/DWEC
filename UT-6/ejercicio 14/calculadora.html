@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora eventos W3C y bubbling</title>
+    <script type="text/javascript">
+        //Este ejemplo muestra como capturar eventos delegados ("bubbling") en document
+        //Esta forma es mucho más concisa, más elegante y eficaz
+        //evento del manejador: ev => {.....} contiene el elemento HTML sobre el que se clicó en la propiedad target
+        //Atributos id o class se utilizan para filtrar eventos con el método matches(..) antes de invocar manejadores
+
+        document.addEventListener("click", ev => {
+            
+
+            if (ev.target.matches("#n1")) vaciar();
+            else if (ev.target.matches("#b1")) cuadrado();
+            else if (ev.target.matches("#b2")) cubo();
+            else if (ev.target.matches("#b3")) division();
+        });
+
+        function vaciar() {
+            document.getElementById("n1").value = "";
+        }
+
+        function cuadrado() {
+            let info = document.querySelector("h3")
+            let num = document.getElementById("n1");
+            num.value = num.value * num.value;
+            info.innerHTML = "El resultado de la operación x<sup>2</sup> es "+num.value
+        }
+
+        function cubo(){
+            let info = document.querySelector("h3")
+            let num = document.getElementById("n1");
+            num.value = num.value * num.value * num.value;
+            info.innerHTML = "El resultado de la operación x<sup>3</sup> es "+num.value
+        }
+
+        function division(){
+            let info = document.querySelector("h3")
+            let num = document.getElementById("n1");
+            num.value = 1 / num.value
+            info.innerHTML = "El resultado de la operación 1/x es "+num.value
+        }
+    </script>
+</head>
+
+<body>
+    Número:
+    <input type="text" id="n1">
+    <button id="b1"> x<sup>2</sup></button>
+    <button id="b2"> x<sup>3</sup></button>
+    <button id="b3"> 1/x</button>
+    <br>
+    <h3>Informacion sobre el numero</h3>
+</body>
+
+</html>

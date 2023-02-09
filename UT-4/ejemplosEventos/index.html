@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        padding: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="primero">
+      Primer Div
+      <div id="segundo">
+        Segundo Div
+        <div id="prueba">Esto es una prueba</div>
+      </div>
+    </div>
+    <script>
+      let campo = document.getElementById("prueba");
+      let primero = document.getElementById("primero");
+      let segundo = document.getElementById("segundo");
+      campo.addEventListener("click", colorFondo, { once: true });
+      primero.addEventListener("click", colorFondo);
+      segundo.addEventListener("click", colorFondo);
+      campo.addEventListener("dblclick", quitar);
+
+      function colorFondo() {
+        if (this.style.backgroundColor == "yellow") {
+          this.style.backgroundColor = "green";
+        } else this.style.backgroundColor = "yellow";
+      }
+
+      function quitar() {
+        this.removeEventListener("click", colorFondo);
+      }
+    </script>
+  </body>
+</html>

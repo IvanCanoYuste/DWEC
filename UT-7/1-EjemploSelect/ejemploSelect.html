@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejemplo select</title>
+  </head>
+  <body>
+    <div>
+      <select id="genres">
+        <option value="rock">Rock</option>
+        <option value="blues" selected>Blues</option>
+      </select>
+    </div>
+    <div>
+      <p>
+        <label for="nuevo">Nuevo</label
+        ><input type="text" name="nuevo" id="nuevo" />
+      </p>
+      <p>
+        <input type="button" value="Añadir género" id="annadir" />
+      </p>
+    </div>
+
+    <script>
+      // Cuando cambie el valor y el texto de la opción seleccionada
+      // - muestra por consola el valor y el texto del option seleccionado
+       let select = document.getElementById("genres")
+       
+
+       select.addEventListener("change",e=>{
+        console.log(e.target.value)
+        let index  = e.target.selectedIndex
+        console.log(e.target.children[index].textContent)
+       })
+
+       
+      // Cuando haga clic en el botón añadir género
+      // - Añade un nuevo option con el texto del input nuevo
+      //   y el value será el texto en minúsculas
+      // - Seleccionalo en el select
+
+      let agregar = document.getElementById("annadir").addEventListener("click",e=>{
+        let texto = document.getElementById("nuevo").value
+        
+        let optionNuevo = document.createElement("option")
+        optionNuevo.innerText = texto;
+        optionNuevo.setAttribute("value",texto.toLowerCase())
+        optionNuevo.selected = true
+        select.append(optionNuevo)
+        
+
+      })
+    </script>
+  </body>
+</html>

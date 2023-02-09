@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 4px;
+      }
+      th {
+        cursor: pointer;
+      }
+      th:hover {
+        background: yellow;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table id="grid">
+      <thead>
+        <tr>
+          <th data-type="number">Age</th>
+          <th data-type="string">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5</td>
+          <td>John</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Pete</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>Ann</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Eugene</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Ilya</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      let th = document.querySelectorAll("th");
+
+      for (let j = 0; j < th.length; j++) {
+        th[j].addEventListener("click", (e) => {
+          e.preventDefault();
+          let tabla,
+            filas,
+            cambia,
+            i,
+            x,
+            y,
+            deberiaCambiar,
+            direccion,
+            tipo,
+            contador = 0;
+
+          tabla = document.getElementById("grid");
+          cambia = true;
+
+          direccion = "asc";
+
+          if (e.target.getAttribute("data-type") == "number") {
+            tipo = "int";
+            n = j;
+          } else if (e.target.getAttribute("data-type") == "string") {
+            tipo = "str";
+            n = j;
+          }
+
+          while (cambia) {
+            cambia = false;
+            filas = tabla.rows;
+
+            for (i = 1; i < filas.length - 1; i++) {
+              deberiaCambiar = false;
+              x = filas[i].getElementsByTagName("TD")[n];
+              y = filas[i + 1].getElementsByTagName("TD")[n];
+              if (direccion == "asc") {
+                if (
+                  (tipo == "str" &&
+                    x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) ||
+                  (tipo == "int" &&
+                    parseFloat(x.innerHTML) > parseFloat(y.innerHTML))
+                ) {
+                  deberiaCambiar = true;
+                  break;
+                }
+              } else if (direccion == "desc") {
+                if (
+                  (tipo == "str" &&
+                    x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) ||
+                  (tipo == "int" &&
+                    parseFloat(x.innerHTML) < parseFloat(y.innerHTML))
+                ) {
+                  deberiaCambiar = true;
+                  break;
+                }
+              }
+            }
+            if (deberiaCambiar) {
+              filas[i].parentNode.insertBefore(filas[i + 1], filas[i]);
+              cambia = true;
+              contador++;
+            } else {
+              if (contador == 0 && direccion == "asc") {
+                direccion = "desc";
+                cambia = true;
+              }
+            }
+          }
+        });
+        th[j].addEventListener("mousedown", (e) => {
+          e.preventDefault();
+        });
+      }
+    </script>
+  </body>
+</html>

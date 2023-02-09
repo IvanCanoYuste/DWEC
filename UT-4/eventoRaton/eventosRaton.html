@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .color {
+        background-color: yellow;
+      }
+    </style>
+    <title>Eventos de ratón 1</title>
+    <script>
+   {
+      let timer = 0;
+    
+      function showmesg(t, form) {
+    
+         if (timer == 0) {
+           timer = new Date();
+         }
+    
+         let tm = new Date();
+    
+         if (tm - timer > 300) {
+           t = '------------------------------\n' + t;
+         }
+    
+         let area = document.forms[form + 'form'].getElementsByTagName('textarea')[0];
+    
+         area.value += t + '\n';
+         area.scrollTop = area.scrollHeight;
+    
+         timer = tm;
+      }
+    
+      function logMouse(e) {
+         let evt = e.type;
+         while (evt.length < 11) evt += ' ';
+         showmesg(evt + " button=" + e.button, 'test')
+         return false;
+      }
+    
+      function logClear(form) {
+        timer = 0;
+        document.forms[form+'form'].getElementsByTagName('textarea')[0].value ='';
+        lines = 0;
+      }
+    
+      window.logClear = logClear;
+      window.logMouse = logMouse;
+    }
+    </script>
+  </head>
+  <body>
+
+    <h2>EJ1 - DETECTAR EL BOTON DEL RATÓN PRESIONADO PARA: MOUSEDOWN, MOUSEUP, CLICK, DBLCLICK, CONTEXTMENU</h2>
+    <p>Observar el orden de los eventos que ocurren al hacer click o doble click con el botón principal o secundario del ratón</p>
+    <p>
+      <input onmousedown="return logMouse(event)" onmouseup="return logMouse(event)" onclick="return logMouse(event)" oncontextmenu="return logMouse(event)" ondblclick="return logMouse(event)" value="Haz click sobre mí con el botón izquierdo o derecho del mouse" type="button"> 
+      <input onclick="logClear('test')" value="Clear" type="button"> 
+      <form id="testform" name="testform">
+        <textarea style="font-size:12px;height:150px;width:360px;"></textarea>
+      </form>
+    </p>
+
+    <h2>EJ2 - DETECTAR SI SE HAN PULSADO DETERMINADAS TECLAS DEL TECLADO</h2>
+    <p>Comprobar si se han pulsado determinadas teclas del teclado al hacer click con un botón del ratón</p>
+    <p>Por ejemplo, el botón abajo solo funciona con<kbd class="shortcut">Alt<span class="shortcut__plus">+</span>Shift</kbd>+click:</p>
+    <div class="codebox__code" data-code="1">
+      <button id="button">Alt+Shift+¡Click sobre mí!</button>
+      <script>
+          button.onclick = function(event) {
+                if (event.altKey && event.shiftKey) {
+                  alert('¡Genial!');
+                }
+            };
+      </script>
+    </div>
+
+    <h2>EJ3 - REPITE EL EJEMPLO ANTERIOR, PERO PARA EL BOTÓN SECUNDARIO DEL RATÓN. IMPIDE EL COMPORTAMIENTO POR DEFECTO</h2>
+    <button id="button2">Alt+Shift+¡Click sobre mí!</button>
+    <script>
+        let boton = document.getElementById("button2")
+        boton.addEventListener("contextmenu",(e)=>{
+
+          
+          e.preventDefault();
+          if (e.altKey && e.shiftKey) {
+                  alert('¡Genial!');
+                }
+              
+        })
+    </script>
+    <h2>EJ4 - IMPIDE QUE SE PUEDA COPIAR EL TEXTO DEL SIGUIENTE PÁRRAFO</h2>
+    <p id="parrafoNoCopiar">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur sit magni enim quisquam debitis molestias nisi architecto fugiat est blanditiis, voluptatibus, nostrum quas! Labore, cupiditate nostrum. Modi itaque in ipsa?
+    </p>
+    <script>
+      let parrafo = document.getElementById("parrafoNoCopiar");
+      /*parrafo.onmousedown= function(){
+        return false
+      }*/
+
+      parrafo.addEventListener("mousedown",(e)=>{
+        e.preventDefault()
+      })
+      
+    </script>
+
+    <h2>EJ 5</h2>
+    <p>A continuación, muestra las posición del ratón respecto a la ventana y respecto a la página HTML</p>
+    <p>Posición respecto a la ventana: <span id="posVentana"></span></p>
+    <p>Posición respecto a la página HTML: <span id="posPagina"></span></p>
+    <script>
+
+      let ventana = document.getElementById("posVentana")
+      let pantalla = document.getElementById("posPagina")
+
+      document.addEventListener("mousemove",(e)=>{
+        ventana.textContent = ""
+        ventana.append(e.clientX+ " ,");
+        ventana.append(e.clientY)
+
+        pantalla.textContent=""
+        pantalla.append(e.screenX+ " ,")
+        pantalla.append(e.screenY)
+      })
+
+    </script>
+  </body>
+</html>
