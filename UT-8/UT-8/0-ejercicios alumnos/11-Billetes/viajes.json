@@ -1,0 +1,26 @@
+[{
+    "ORIGEN": "MADRID",
+    "DESTINOS": {
+        "DESTINO": [
+            "BARCELONA",
+            "VALENCIA",
+            "SEVILLA"
+        ]
+    }
+},
+{
+    "ORIGEN": "BARCELONA",
+    "DESTINOS": {
+        "DESTINO": [
+            "MADRID",
+            "ZARAGOZA"
+        ]
+    }
+},
+{
+    "ORIGEN": "VALENCIA",
+    "DESTINOS": {
+        "DESTINO": "MADRID"
+    }
+}
+]
